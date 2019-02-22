@@ -9,7 +9,7 @@ public :: prepare_chemistry_init, prepare_chemistry_run, prepare_chemistry_final
 
 contains
 
-subroutine prepare_chemistry_init(cnst_info, model_name, nSpecies, nkRxt, njRxt)
+subroutine prepare_chemistry_init(cnst_info, model_name, nSpecies, nkRxt, njRxt, nTotrxt)
 
 ! This routine reads in the chemistry json file 
 
@@ -17,6 +17,7 @@ subroutine prepare_chemistry_init(cnst_info, model_name, nSpecies, nkRxt, njRxt)
   integer, intent(out) :: nSpecies    ! number prognostic constituents
   integer, intent(out) :: nkRxt       ! number gas phase reactions
   integer, intent(out) :: njRxt       ! number of photochemical reactions
+  integer, intent(out) :: nTotrxt     ! total number of reactions
 
   character(len=120) :: jsonfile 
   type(const_props_type), pointer :: cnst_info(:)
@@ -25,6 +26,8 @@ subroutine prepare_chemistry_init(cnst_info, model_name, nSpecies, nkRxt, njRxt)
 
   jsonfile = '../../MICM_chemistry/generated/'//trim(model_name)//'/molec_info.json'
   call json_loader_read( jsonfile, cnst_info, nSpecies, nkRxt, njRxt )
+
+  nTotrxt = nkRxt + njRxt
 
 end subroutine prepare_chemistry_init
 

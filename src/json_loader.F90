@@ -6,10 +6,9 @@ module json_loader
   
 contains
 
-  subroutine json_loader_read( jsonfile, cnst_info, ncnst, nrxtn, nphot )
+  subroutine json_loader_init( jsonfile, ncnst, nrxtn, nphot )
     
     character(len=*), intent(in) :: jsonfile
-    type(const_props_type), pointer :: cnst_info(:)
     integer, intent(out) :: ncnst, nrxtn, nphot
     
     ! local vars
@@ -54,6 +53,70 @@ contains
           ncnst = core%count(child2)
           !write(*,*)  '  ncnst : ', ncnst
 
+       end if molecules
+       
+       photolysis: if (name=='photolysis') then
+          nphot = core%count(child2)
+          !write(*,*)  '  nphot : ', nphot
+       end if photolysis
+       
+       reactions: if (name=='reactions') then
+          nrxtn = core%count(child2)
+          !write(*,*)  '  nrxtn : ', nrxtn
+       end if reactions
+       
+    enddo
+
+    call json%destroy()
+
+  end subroutine json_loader_init
+  subroutine json_loader_read( jsonfile, ncnst, cnst_info )
+    
+    character(len=*), intent(in) :: jsonfile
+    integer, intent(in) :: ncnst
+    type(const_props_type), pointer :: cnst_info(:)
+    
+    ! local vars
+    type(json_file) :: json       !! the JSON structure read from the file
+    type(json_value),pointer :: p !! a pointer for low-level manipulations
+    type(json_core) :: core       !! factory for manipulating `json_value` pointers
+    type(json_value),pointer :: child 
+    type(json_value),pointer :: child2
+    type(json_value),pointer :: child3
+    character(len=:),allocatable :: name
+    
+    logical :: found
+    integer :: i, n, nsections
+    character(len=:),allocatable :: string
+    real :: rval
+    
+    call json%initialize()
+
+    write(*,*) 'Load the file :'//jsonfile
+
+    call json%load_file(filename = jsonfile)
+
+!    call json%print_file()
+
+    call core%initialize()
+    call json%get(p) ! get root
+
+    call core%get_child(p,child)
+
+    nsections = core%count(child)
+
+    !write(*,*)  'nsections : ', nsections
+
+    do i = 1,nsections
+
+       call core%get_child(child,i,child2)
+       call core%info(child2,name=name)
+
+       molecules: if (name=='molecules') then
+
+          !write(*,*)  'Read obj data : '//name
+          !write(*,*)  '  ncnst : ', ncnst
+
           allocate( cnst_info(ncnst) )
 
           do n = 1,ncnst
@@ -79,15 +142,6 @@ contains
 
        end if molecules
        
-       photolysis: if (name=='photolysis') then
-          nphot = core%count(child2)
-          !write(*,*)  '  nphot : ', nphot
-       end if photolysis
-       
-       reactions: if (name=='reactions') then
-          nrxtn = core%count(child2)
-          !write(*,*)  '  nrxtn : ', nrxtn
-       end if reactions
        
     enddo
 

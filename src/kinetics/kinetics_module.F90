@@ -22,14 +22,26 @@ public :: kinetics_type
 ! rate_constant_store will be an accessor to memory
 ! For now, it is allocated here. It is not thread safe
 
-! Filter with CPP for PGI compiler
-!> \section arg_table_kinetics_type
-!! | local_name   | standard_name                                 | long_name                               | units   | rank | type          |    kind   | intent | optional |
-!! |--------------|-----------------------------------------------|-----------------------------------------|---------|------|---------------|-----------|--------|----------|
-!! | theKinetics  | kinetics_data                                 | chemistry kinetics                      | DDT     |    0 | kinetics_type |           | none   | F        |
-!! | nTotRxt      | num_chemical_reactions                        | total number of chemical reactions      | count   |    0 | integer       |           | none   | F        |
+!==============================================================================
+!! \section arg_table_kinetics_type
+!! [ nReact ]
+!!    standard_name = number_of_kinetics_reactions
+!!    units = count
+!!    dimensions = ()
+!!    type = integer
+!! [ rateConst ]
+!!    standard_name = rate_constants
+!!    units = 1
+!!    dimensions = (number_of_kinetics_reactions)
+!!    type = real
+!!    kind = kind_phys
+!! [ number_density ]
+!!    standard_name = number_density
+!!    units = molecules cm-3
+!!    dimensions = ()
+!!    type = real
+!!    kind = kind_phys
 !!
-
 type kinetics_type
   private
   integer :: nReact

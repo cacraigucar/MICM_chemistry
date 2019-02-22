@@ -4,6 +4,27 @@ module const_props_mod
 
   private
 
+!==============================================================================
+!! \section arg_table_const_props_type
+!! [ name ]
+!!   standard_name = constituent_name
+!!   type = character
+!!   kind = len=16
+!!   units = 1
+!!   dimensions = ()
+!! [ desc ]
+!!   standard_name = constituent_description
+!!   type = character
+!!   kind = len=128
+!!   units = 1
+!!   dimensions = ()
+!! [ molecwght ]
+!!   standard_name = molecular_weight_of_constituent
+!!   type = real
+!!   kind = kind_phys
+!!   units = radians
+!!   dimensions = ()
+!!
   type, public :: const_props_type
      private
      character(len=16) :: name = 'UNSET'
