@@ -86,7 +86,7 @@ contains
 !!    optional = F
 !! [ c_h2o ]
 !!    standard_name = water_vapor_mole_fraction
-!!    units = mole/mole
+!!    units = mole mole-1
 !!    dimensions = ()
 !!    type = real
 !!    kind = kind_phys
@@ -101,15 +101,6 @@ contains
 !!    kind = kind_phys
 !!    intent = in
 !!    optional = F
-!! [ errmsg ]
-!!    standard_name = ccpp_error_message
-!!    long_name = CCPP error message
-!!    units = none
-!!    dimensions = ()
-!!    type = character
-!!    kind = len=512
-!!    intent = out
-!!    optional = F
 !! [ errflg ]
 !!    standard_name = ccpp_error_flag
 !!    long_name = CCPP error flag
@@ -118,13 +109,22 @@ contains
 !!    type = integer
 !!    intent = out
 !!    optional = F
+!! [ errmsg ]
+!!    standard_name = ccpp_error_message
+!!    long_name = CCPP error message
+!!    units = 1
+!!    dimensions = ()
+!!    type = character
+!!    kind = len=512
+!!    intent = out
+!!    optional = F
 !!
   subroutine k_rateConst_run(k_rateConst, c_m, rh, c_h2o, temp, errflg, errmsg)
   
     real(r8),           intent(inout) :: k_rateConst(:)
     real(r8),           intent(in)  :: c_m
-    real(r8),           intent(in)  :: rh 
-    real(r8),           intent(in)  :: c_h2o     
+    real(r8),           intent(in)  :: rh
+    real(r8),           intent(in)  :: c_h2o
     real(r8),           intent(in)  :: TEMP
     character(len=512), intent(out) :: errmsg
     integer,            intent(out) :: errflg
