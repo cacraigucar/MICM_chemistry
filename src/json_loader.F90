@@ -74,7 +74,7 @@ contains
     
     character(len=*), intent(in) :: jsonfile
     integer, intent(in) :: ncnst
-    type(const_props_type), pointer :: cnst_info(:)
+    type(const_props_type)             :: cnst_info(:)
     
     ! local vars
     type(json_file) :: json       !! the JSON structure read from the file
@@ -117,7 +117,7 @@ contains
           !write(*,*)  'Read obj data : '//name
           !write(*,*)  '  ncnst : ', ncnst
 
-          allocate( cnst_info(ncnst) )
+!          allocate( cnst_info(ncnst) )
 
           do n = 1,ncnst
              call core%get_child(child2, n, child3, found)

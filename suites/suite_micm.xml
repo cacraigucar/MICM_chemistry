@@ -2,6 +2,7 @@
 
 <suite name="cam_micm" version="1.0">
   <group name="physics">
+    <scheme>mass_quantities_util</scheme>
     <scheme>specific_to_relative_humidity</scheme>
     <scheme>specific_humidity_to_mole_fraction</scheme>
     <scheme>k_rateConst</scheme>

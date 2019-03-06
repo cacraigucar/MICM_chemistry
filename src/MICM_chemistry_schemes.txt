@@ -2,3 +2,6 @@
 ../../MICM_chemistry/src/kinetics/kinetics_module.F90  
 ../../MICM_chemistry/src/kinetics/prepare_chemistry.F90
 ../../MICM_chemistry/src/kinetics/kinetics.F90       
+../../MICM_chemistry/src/mass_quantities_util.F90
+../../MICM_chemistry/src/chemistry_driver_ros.F90
+../../MICM_chemistry/src/chemistry_driver_moz.F90

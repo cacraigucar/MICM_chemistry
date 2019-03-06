@@ -71,10 +71,17 @@ INCLUDE_DIRECTORIES(generated/${PROJECT})
 
 set(SCHEMES
       ./src/json_loader.F90  
+      ./src/mass_quantities_util.F90
+      ./src/chemistry_driver_ros.F90
+      ./src/chemistry_driver_moz.F90
+      ./src/ODE_solver.F90
+      ./src/rosenbrock_solver.F90
+      ./src/mozart_solver.F90
       ./src/const_props_mod.F90
       ./src/kinetics/kinetics.F90
       ./src/kinetics/k_rateConst.F90
       ./src/kinetics/kinetics_module.F90
+      ./src/kinetics/kinetics_params.F90
       ./src/json_lib/json_file_module.F90
       ./src/json_lib/json_kinds.F90
       ./src/json_lib/json_module.F90
