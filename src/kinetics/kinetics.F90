@@ -65,7 +65,7 @@ contains
     integer,                        intent(out)   :: nTotRxt
     integer,                        intent(out)   :: ncnst
     type(kinetics_type),            intent(out)   :: theKinetics
-    type(const_props_type),              intent(out) :: cnst_info(:)
+    type(const_props_type),allocatable,  intent(out) :: cnst_info(:)
     character(len=512),             intent(out)   :: errmsg
     integer,                        intent(out)   :: errflg
 
@@ -80,6 +80,7 @@ contains
       call json_loader_init( jsonfile, ncnst, nkrxt, njrxt )
       nTotrxt = nkrxt + njrxt
 
+      allocate(cnst_info(ncnst))
 
 !    jsonfile = '../../MICM_chemistry/generated/'//trim(model_name)//'/molec_info.json'
     call json_loader_read( jsonfile, ncnst, cnst_info )
